@@ -2,11 +2,11 @@ import {
   helpers,
   Status,
   httpErrors,
-} from "https://deno.land/x/oak@v5.0.0/mod.ts";
+} from "https://deno.land/x/oak@v10.4.0/mod.ts";
 import {
   required,
   isEmail,
-} from "https://deno.land/x/validasaur@v0.7.0/src/rules.ts";
+} from "https://deno.land/x/validasaur@v0.15.0/src/rules.ts";
 import * as userService from "./../services/user.service.ts";
 import { requestValidator, userGuard } from "./../middlewares/middlewares.ts";
 import { Context, UserRole } from "./../types.ts";
@@ -19,7 +19,7 @@ const userSchema = {
 };
 
 /**
- * get list of users 
+ * get list of users
  * call by ADMIN
  */
 const getUsers = [
@@ -45,7 +45,7 @@ const getUserById = [
 
 /**
  * update user
- * call by user himselft or ADMIN 
+ * call by user himselft or ADMIN
  */
 const updateUser = [
   userGuard(),

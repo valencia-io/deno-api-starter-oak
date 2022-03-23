@@ -1,6 +1,6 @@
-import { ClientPostgreSQL } from "https://deno.land/x/nessie@v1.0.0-rc3/mod.ts";
-import { ClientMySQL } from "https://deno.land/x/nessie@v1.0.0-rc3/mod.ts";
-import { ClientSQLite } from "https://deno.land/x/nessie@v1.0.0-rc3/mod.ts";
+import { ClientPostgreSQL } from "https://deno.land/x/nessie@2.0.5/mod.ts";
+import { ClientMySQL } from "https://deno.land/x/nessie@2.0.5/mod.ts";
+import { ClientSQLite } from "https://deno.land/x/nessie@2.0.5/mod.ts";
 
 /** These are the default config options. */
 const clientOptions = {

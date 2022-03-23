@@ -1,14 +1,14 @@
-import { httpErrors } from "https://deno.land/x/oak@v5.0.0/mod.ts";
+import { httpErrors, Middleware } from "https://deno.land/x/oak@v10.4.0/mod.ts";
 import { Context, UserRole } from "./../types.ts";
 import { hasUserRole } from "../helpers/roles.ts";
 
 
 /**
- * has user role middleware 
+ * has user role middleware
  * checks authorization for context user, user roles
  */
 const userGuard = (roles?: UserRole | UserRole[]) => {
-  return async (ctx: Context, next: () => Promise<void>) => {
+  const middleware: Middleware = async (ctx: Context, next) => {
     // if auth user not found, throw error
     const { user } = ctx;
     if (!user) {
@@ -27,6 +27,7 @@ const userGuard = (roles?: UserRole | UserRole[]) => {
 
     await next();
   };
+  return middleware
 };
 
 export { userGuard };

@@ -1,20 +1,6 @@
 import { Context, AuthUser } from "./../types.ts";
-import { validateJwt } from "https://deno.land/x/djwt@v0.9.0/validate.ts";
-
-/**
- * Decode token and returns payload
- * if given token is not expired 
- * and valid with respect to given `secret`
- */
-const getJwtPayload = async (token: string, secret: string): Promise<any | null> => {
-  try {
-    const jwtObject = await validateJwt(token, secret);
-    if (jwtObject && jwtObject.payload) {
-      return jwtObject.payload;
-    }
-  } catch (err) {}
-  return null;
-};
+import { getJwtPayload } from "../helpers/jwt.ts";
+import { Middleware } from "https://deno.land/x/oak@v10.4.0/mod.ts";
 
 
 /***
@@ -22,26 +8,23 @@ const getJwtPayload = async (token: string, secret: string): Promise<any | null>
  * Decode authorization bearer token
  * and attach as an user in application context
  */
-const JWTAuthMiddleware = (JWTSecret: string) => {
-  return async (
-    ctx: Context,
-    next: () => Promise<void>,
-  ) => {
-    try {
-      const authHeader = ctx.request.headers.get("Authorization");
-      if (authHeader) {
-        const token = authHeader.replace(/^bearer/i, "").trim();
-        const user = await getJwtPayload(token, JWTSecret);
+const JWTAuthMiddleware: Middleware = async (
+  ctx: Context,
+  next,
+) => {
+  try {
+    const authHeader = ctx.request.headers.get("Authorization");
+    if (authHeader) {
+      const token = authHeader.replace(/^bearer/i, "").trim();
+      const user = await getJwtPayload(token);
 
-        if (user) {
-          ctx.user = user as AuthUser;
-        }
+      if (user) {
+        ctx.user = user as AuthUser;
       }
-    } catch (err) { }
+    }
+  } catch (err) { }
 
-    await next();
-  };
-
-}
+  await next();
+};
 
 export { JWTAuthMiddleware };

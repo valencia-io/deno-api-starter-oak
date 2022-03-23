@@ -8,14 +8,14 @@ import {
   required,
   isEmail,
   lengthBetween,
-} from "https://deno.land/x/validasaur@v0.7.0/src/rules.ts";
+} from "https://deno.land/x/validasaur@v0.15.0/src/rules.ts";
 
 import * as authService from "./../services/auth.service.ts";
 import { requestValidator } from "./../middlewares/request-validator.middleware.ts";
 
-/** 
- * request body schema 
- * for user create/update 
+/**
+ * request body schema
+ * for user create/update
  * */
 const registrationSchema = {
   name: [required],
@@ -34,15 +34,15 @@ const register = [
   /** router handler */
   async (ctx: Context) => {
     const request = ctx.request;
-    const userData = (await request.body()).value as CreateUser;
+    const userData = (await request.body()).value as unknown as CreateUser;
     const user = await authService.registerUser(userData);
     ctx.response.body = user;
   },
 ];
 
-/** 
- * login body schema 
- * for user create/update 
+/**
+ * login body schema
+ * for user create/update
  * */
 const loginSchema = {
   email: [required, isEmail],
@@ -55,7 +55,7 @@ const login = [
   /** router handler */
   async (ctx: Context) => {
     const request = ctx.request;
-    const credential = (await request.body()).value as LoginCredential;
+    const credential = (await request.body()).value as unknown as LoginCredential;
     const token = await authService.loginUser(credential);
     ctx.response.body = token;
   },
@@ -70,7 +70,7 @@ const refreshToken = [
   /** router handler */
   async (ctx: Context) => {
     const request = ctx.request;
-    const data = (await request.body()).value as RefreshToken;
+    const data = (await request.body()).value as unknown as RefreshToken;
 
     const token = await authService.refreshToken(
       data["refresh_token"],

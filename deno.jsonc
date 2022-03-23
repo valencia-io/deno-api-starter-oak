@@ -1,0 +1,47 @@
+{
+  // curl -O https://config.deno.dev/deno.jsonc
+  "lint": {
+    "files": {
+      "exclude": [
+        ".cache",
+        ".git",
+        "coverage",
+        "node_modules/**",
+        "vendor/**"
+      ]
+    },
+    "rules": {
+      "exclude": []
+    }
+  },
+  "fmt": {
+    "files": {
+      "exclude": [".cache", ".git", "coverage", "node_modules/**", "vendor/**"]
+    },
+    "options": {
+      "useTabs": false,
+      "lineWidth": 80,
+      "indentWidth": 2,
+      "singleQuote": false,
+      "proseWrap": "always"
+    }
+  },
+  "tasks": {
+    "dev": "deno run -A --watch --no-check app.ts",
+    "start": "deno run --allow-read=.env,.env.defaults --allow-net  app.ts",
+    "debug": "deno run --inspect-brk app.ts",
+    "server-timeout": "timeout 5 deno task start || exit 0",
+    "install-hooks": "vr",
+    "test": "deno test -A --ignore=.cache --no-prompt",
+    "test-doc": "deno task test -- --doc",
+    "test-watch": "deno task test -- --watch",
+    "test-server": "deno task server-timeout & sleep 1 && TEST_SERVER=1  deno task test -- --filter=[server]",
+    "build-npm": "deno run -A _scripts/build_npm.ts",
+    "ci": "deno lint && deno fmt --check && deno task test-ci",
+    "release": "sh _scripts/release.sh",
+    "tag": "sh _scripts/tag.sh",
+    "bench": "deno bench --allow-env=NO-COLOR,LOG_LEVEL --no-check",
+    "update": "deno run -A https://deno.land/x/udd/main.ts  \"**/*.{ts,js,tsx,jsx, cjs, mjs}\" "
+  }
+  // "importMap":"vendor/import_map.json"
+}

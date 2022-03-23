@@ -1,15 +1,15 @@
 import { Context } from "./../types.ts";
-import { v4 as uuid } from "https://deno.land/std@0.62.0/uuid/mod.ts";
+import { Middleware } from "https://deno.land/x/oak@v10.4.0/mod.ts";
 
 /**
  * requestId middleware
- * attach requestId in request & response header 
+ * attach requestId in request & response header
  */
-const requestIdMiddleware = async (ctx: Context, next: () => Promise<void>) => {
+const requestIdMiddleware: Middleware = async (ctx: Context, next) => {
   let requestId = ctx.request.headers.get("X-Response-Id");
   if (!requestId) {
     /** if request id not being set, set unique request id */
-    requestId = uuid.generate();
+    requestId = globalThis.crypto.randomUUID()
     ctx.request.headers.set("X-Response-Id", requestId.toString());
   }
   await next();

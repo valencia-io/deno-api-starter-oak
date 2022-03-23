@@ -1,7 +1,7 @@
 import {
   Migration,
-} from "https://deno.land/x/nessie@v1.0.0-rc3/mod.ts";
-import { Schema } from "https://deno.land/x/nessie@v1.0.0-rc3/qb.ts";
+} from "https://deno.land/x/nessie@2.0.5/mod.ts";
+import { Schema } from "https://deno.land/x/nessie@2.0.5/qb.ts";
 
 /** Runs on migrate */
 export const up: Migration<Schema> = ({ queryBuilder }) => {

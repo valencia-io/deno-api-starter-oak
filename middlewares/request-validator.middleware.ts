@@ -1,9 +1,13 @@
 import {
   validate,
+} from "https://deno.land/x/validasaur@v0.15.0/mod.ts";
+
+import type {
   ValidationErrors,
   ValidationRules,
-} from "https://deno.land/x/validasaur@v0.7.0/src/mod.ts";
-import { httpErrors } from "https://deno.land/x/oak@v5.0.0/mod.ts";
+} from "https://deno.land/x/validasaur@v0.15.0/mod.ts";
+
+import { httpErrors, Middleware } from "https://deno.land/x/oak@v10.4.0/mod.ts";
 import { Context } from "./../types.ts";
 
 /**
@@ -21,14 +25,15 @@ const getErrorMessage = (
 };
 
 /**
- * request validation middleware 
+ * request validation middleware
  * validate request body with given validation rules
  */
 const requestValidator = ({ bodyRules }: { bodyRules: ValidationRules }) => {
-  return async (ctx: Context, next: () => Promise<void>) => {
+  const middleware: Middleware = async (ctx: Context, next) => {
     /** get request body */
     const request = ctx.request;
-    const body = (await request.body()).value;
+    // deno-lint-ignore no-explicit-any
+    const body = (await request.body()).value as Record<string, any>;
 
     /** check rules */
     const [isValid, errors] = await validate(body, bodyRules);
@@ -40,6 +45,7 @@ const requestValidator = ({ bodyRules }: { bodyRules: ValidationRules }) => {
 
     await next();
   };
+  return middleware;
 };
 
 export { requestValidator };

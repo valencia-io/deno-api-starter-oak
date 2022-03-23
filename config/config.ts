@@ -1,2 +1,2 @@
-import { config as loadConfig } from "https://deno.land/x/dotenv@v0.4.2/mod.ts";
+import { config as loadConfig } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
 export const config = loadConfig();
