@@ -1,0 +1,14 @@
+@host=http://localhost:8000
+
+###
+GET /
+
+###
+
+POST /auth/login
+Content-Type: application/json
+
+{
+    "email": "juan@garn.dev",
+    "password": "123456"
+}

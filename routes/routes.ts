@@ -10,14 +10,14 @@ const router: Router = new Router();
 // });
 
 router
-  .post("/login", () => { }, ...authRoutes.login)
-  .post("/register", () => { }, ...authRoutes.register)
-  .post("/token", () => { }, ...authRoutes.refreshToken);
+  .post("/login", (_, next) => next(), ...authRoutes.login)
+  .post("/register", (_, next) => next(), ...authRoutes.register)
+  .post("/token", (_, next) => next(), ...authRoutes.refreshToken);
 
 router
-  .get("/users", () => { }, ...userRoutes.getUsers)
-  .get("/users/:id", () => { }, ...userRoutes.getUserById)
-  .put("/users/:id", () => { }, ...userRoutes.updateUser)
-  .delete("/users/:id", () => { }, ...userRoutes.deleteUser);
+  .get("/users", (_, next) => next(), ...userRoutes.getUsers)
+  .get("/users/:id", (_, next) => next(), ...userRoutes.getUserById)
+  .put("/users/:id", (_, next) => next(), ...userRoutes.updateUser)
+  .delete("/users/:id", (_, next) => next(), ...userRoutes.deleteUser);
 
 export { router };

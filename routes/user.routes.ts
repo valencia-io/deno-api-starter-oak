@@ -8,7 +8,7 @@ import {
   isEmail,
 } from "https://deno.land/x/validasaur@v0.15.0/src/rules.ts";
 import * as userService from "./../services/user.service.ts";
-import { requestValidator, userGuard } from "./../middlewares/middlewares.ts";
+import { requestValidator, userGuard } from "./../middleware/middleware.ts";
 import { Context, UserRole } from "./../types.ts";
 import { hasUserRole } from "../helpers/roles.ts";
 

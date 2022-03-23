@@ -11,7 +11,7 @@ import {
 } from "https://deno.land/x/validasaur@v0.15.0/src/rules.ts";
 
 import * as authService from "./../services/auth.service.ts";
-import { requestValidator } from "./../middlewares/request-validator.middleware.ts";
+import { requestValidator } from "./../middleware/request-validator.middleware.ts";
 
 /**
  * request body schema

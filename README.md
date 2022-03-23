@@ -96,7 +96,7 @@ deno run --allow-net --allow-read --allow-write https://deno.land/x/nessie@1.0.0
 |   |── migrations/
 |   |── seeds/
 |   ├── db.ts (DB connection object)
-├── middlewares/
+├── middleware/
 ├── migrations/
 ├── services/
 ├── repositories/
@@ -144,7 +144,7 @@ deno run --allow-net --allow-read --allow-write https://deno.land/x/nessie@1.0.0
 
 ## How to validate request body
 - Here we used [validasaur@0.7.0](https://deno.land/x/validasaur@0.7.0) module for validating forms or request body. List of available rules can be found [here](https://deno.land/x/validasaur@0.7.0/#available-rules)
-- [requestValidator](./middlewares/request-validator.middleware.ts) middleware added to validate the request body.
+- [requestValidator](./middleware/request-validator.middleware.ts) middleware added to validate the request body.
 ```
 //auth.routes.ts
 import {
@@ -152,7 +152,7 @@ import {
   isEmail,
 } from "https://deno.land/x/validasaur@0.7.0/src/rules.ts";
 
-import { requestValidator } from "./../middlewares/request-validator.middleware.ts";
+import { requestValidator } from "./../middleware/request-validator.middleware.ts";
 
 /**
  * request body schema
@@ -188,11 +188,11 @@ JWT_REFRESH_TOKEN_EXP=3600000
 
 ```
 - Request header should contain JWT bearer token as `Authorization` key.
-- Middleware [JWTAuthMiddleware](./middlewares/jwt-auth.middleware.ts) used to parse the `Authorization` header and decode the payload as `ctx.user`.
+- Middleware [JWTAuthMiddleware](./middleware/jwt-auth.middleware.ts) used to parse the `Authorization` header and decode the payload as `ctx.user`.
 
 ## How to add auth guards
-- Auth guards are dependent on the `ctx.user` provided by [JWTAuthMiddleware](./middlewares/jwt-auth.middleware.ts) middleware.
-- To define different levels of authentication guard in different route handlers, middleware [userGuard](./middlewares/user-guard.middleware.ts) defined.
+- Auth guards are dependent on the `ctx.user` provided by [JWTAuthMiddleware](./middleware/jwt-auth.middleware.ts) middleware.
+- To define different levels of authentication guard in different route handlers, middleware [userGuard](./middleware/user-guard.middleware.ts) defined.
 - `userGuard` middleware optionally takes allowed user's roles as parameter. Otherwise, it will check only for the signed user.
 - Here is the example usage:-
 ```
