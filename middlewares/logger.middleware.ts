@@ -1,13 +1,15 @@
 import type { Middleware } from "https://deno.land/x/oak@v10.4.0/mod.ts";
+import logger, { formatToAnsiColors } from "https://deno.land/x/garn_logger@0.0.16/mod.ts";
+
+logger.use(formatToAnsiColors());
+
 import { Context } from "./../types.ts";
 const loggerMiddleware: Middleware = async (ctx: Context, next) => {
   await next();
   const reqTime = ctx.response.headers.get("X-Response-Time");
-  const reqId = ctx.response.headers.get("X-Response-Id");
   const status = ctx.response.status;
-  console.log(
-    `${reqId} ${ctx.request.method} ${ctx.request.url} - ${reqTime} status: ${status}`,
-  );
+  logger[status](ctx.request.method, ctx.request.url.pathname, reqTime);
+
 };
 
 export { loggerMiddleware };

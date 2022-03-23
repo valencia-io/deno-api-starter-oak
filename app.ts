@@ -18,6 +18,6 @@ app.use(middleware.requestIdMiddleware);
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-console.log(`Server running on localhost:${port}`);
+console.log(`Server running on http://localhost:${port}`);
 
 await app.listen({ port });
