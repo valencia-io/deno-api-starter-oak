@@ -31,8 +31,6 @@
     "start": "deno run --allow-read=.env,.env.defaults --allow-net  app.ts",
     "debug": "deno run --inspect-brk app.ts",
     "server-timeout": "timeout 5 deno task start || exit 0",
-    "migrate": "deno run -A --unstable https://deno.land/x/nessie/cli.ts migrate",
-    "generate-migration": "deno run -A --unstable https://deno.land/x/nessie/cli.ts make ",
     "test": "deno test -A --ignore=.cache --no-prompt",
     "test-doc": "deno task test -- --doc",
     "test-watch": "deno task test -- --watch",
@@ -42,7 +40,11 @@
     "release": "sh _scripts/release.sh",
     "tag": "sh _scripts/tag.sh",
     "bench": "deno bench --allow-env=NO-COLOR,LOG_LEVEL --no-check",
-    "update": "deno run -A https://deno.land/x/udd/main.ts  \"**/*.{ts,js,tsx,jsx, cjs, mjs}\" "
+    "update": "deno run -A https://deno.land/x/udd/main.ts  \"**/*.{ts,js,tsx,jsx, cjs, mjs}\" ",
+    "nessie": "deno run -A --unstable https://deno.land/x/nessie/cli.ts",
+    "migrate": "deno task nessie  migrate",
+    "make":"deno task nessie  make",
+    "rollback":"deno task nessie  rollback",
   }
   // "importMap":"vendor/import_map.json"
 }

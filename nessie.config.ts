@@ -6,14 +6,16 @@ import {
 import { config } from "./config/config.ts";
 
 
-const client = new ClientMySQL({
+const conf = {
     hostname: config.DB_HOST,
     port: Number(config.DB_PORT),
     username: config.DB_USER,
     password: config.DB_PASS,
     // password: "pwd", // uncomment this line for <8
     db: config.DB_NAME,
-});
+}
+
+const client = new ClientMySQL(conf);
 
 /** This is the final config object */
 const nessieConfig: NessieConfig = {
