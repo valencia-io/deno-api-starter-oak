@@ -1,25 +1,25 @@
-import { ClientPostgreSQL } from "https://deno.land/x/nessie@2.0.5/mod.ts";
-import { ClientMySQL } from "https://deno.land/x/nessie@2.0.5/mod.ts";
-import { ClientSQLite } from "https://deno.land/x/nessie@2.0.5/mod.ts";
+import {
+    ClientMySQL,
+    NessieConfig,
+} from "https://deno.land/x/nessie@2.0.5/mod.ts";
 
-/** These are the default config options. */
-const clientOptions = {
-  migrationFolder: "./db/migrations",
-  seedFolder: "./db/seeds",
-};
+import { config } from "./config/config.ts";
 
-const clientMySql = new ClientMySQL(clientOptions, {
-  hostname: "localhost",
-  port: 3306,
-  username: "root",
-  password: "example", // uncomment this line for <8
-  db: "deno_api_db",
+
+const client = new ClientMySQL({
+    hostname: config.DB_HOST,
+    port: Number(config.DB_PORT),
+    username: config.DB_USER,
+    password: config.DB_PASS,
+    // password: "pwd", // uncomment this line for <8
+    db: config.DB_NAME,
 });
 
 /** This is the final config object */
-const config = {
-  client: clientMySql,
-  exposeQueryBuilder: true,
+const nessieConfig: NessieConfig = {
+    client,
+    migrationFolders: ["./db/migrations"],
+    seedFolders: ["./db/seeds"],
 };
 
-export default config;
+export default nessieConfig;
