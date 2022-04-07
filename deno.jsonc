@@ -28,7 +28,7 @@
   },
   "tasks": {
     "dev": "deno run -A --watch --no-clear-screen  --no-check app.ts",
-    "start": "deno run --allow-read=.env,.env.defaults --allow-net  app.ts",
+    "start": "deno run --allow-read=.env,.env.defaults  --allow-env=NO_COLOR  --allow-net  app.ts",
     "debug": "deno run --inspect-brk app.ts",
     "server-timeout": "timeout 5 deno task start || exit 0",
     "test": "deno test -A --ignore=.cache --no-prompt",

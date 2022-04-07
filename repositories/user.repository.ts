@@ -4,11 +4,11 @@ import { UserInfo } from "../types.ts";
 /**
  * Get all users list
  */
-const getUsers = async () => {
+export const getUsers = async () => {
   return await db.query(`
-    SELECT 
+    SELECT
       id, name, email, roles,
-      is_active, created_at, updated_at 
+      is_active, created_at, updated_at
     FROM users
   `);
 };
@@ -16,7 +16,7 @@ const getUsers = async () => {
 /**
  * get user by user id
  */
-const getUserById = async (id: number) => {
+export const getUserById = async (id: number) => {
   const users = await db.query(
     `
     SELECT
@@ -32,7 +32,7 @@ const getUserById = async (id: number) => {
  * get user by email
  * return user info with password
  */
-const getUserByEmail = async (email: string) => {
+export const getUserByEmail = async (email: string) => {
   const users = await db.query(
     `
     SELECT
@@ -47,7 +47,7 @@ const getUserByEmail = async (email: string) => {
 /**
  * Create user
  */
-const createUser = async (
+export const createUser = async (
   user: UserInfo,
 ) => {
   const { name, email, password } = user;
@@ -56,11 +56,11 @@ const createUser = async (
   const { lastInsertId } = await db.query(
     `
     INSERT into users (
-      id, name, email, roles, password, 
+      id, name, email, roles, password,
       is_active, created_at, updated_at
     )
     VALUES (
-      DEFAULT, ? , ? , ?, ?, 
+      DEFAULT, ? , ? , ?, ?,
       1, DEFAULT, DEFAULT
     );
     `,
@@ -73,7 +73,7 @@ const createUser = async (
 /**
  * Update user
  */
-const updateUser = async (
+export const updateUser = async (
   id: number,
   user: { name: string; email: string },
 ) => {
@@ -95,7 +95,7 @@ const updateUser = async (
 /**
  * Delete user
  */
-const deleteUser = async (
+export const deleteUser = async (
   id: number,
 ) => {
   const result = await db.query(
@@ -106,13 +106,4 @@ const deleteUser = async (
     [id],
   );
   return result;
-};
-
-export {
-  getUsers,
-  getUserById,
-  getUserByEmail,
-  createUser,
-  updateUser,
-  deleteUser,
 };

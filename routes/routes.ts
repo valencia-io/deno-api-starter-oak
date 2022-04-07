@@ -1,4 +1,6 @@
 import { Router } from "https://deno.land/x/oak@v10.4.0/mod.ts";
+import { UserRole } from "./../types.ts";
+import { userGuard } from "./../middleware/middleware.ts";
 
 import * as authRoutes from "./auth.routes.ts";
 import * as userRoutes from "./user.routes.ts";
@@ -11,14 +13,14 @@ router.get("/health", (ctx) => {
 });
 
 router
-  .post("/login", (_, next) => next(), ...authRoutes.login)
-  .post("/register", (_, next) => next(), ...authRoutes.register)
-  .post("/token", (_, next) => next(), ...authRoutes.refreshToken);
+  .post("/login", authRoutes.login)
+  .post("/register", authRoutes.register)
+  .post("/token", authRoutes.refreshToken);
 
 router
-  .get("/users", (_, next) => next(), ...userRoutes.getUsers)
-  .get("/users/:id", (_, next) => next(), ...userRoutes.getUserById)
-  .put("/users/:id", (_, next) => next(), ...userRoutes.updateUser)
-  .delete("/users/:id", (_, next) => next(), ...userRoutes.deleteUser);
+  .get("/users", userGuard(UserRole.ADMIN), userRoutes.getUsers)
+  .get("/users/:id", userGuard(UserRole.ADMIN), userRoutes.getUserById)
+  .put("/users/:id", userGuard(UserRole.ADMIN), userRoutes.updateUser)
+  .delete("/users/:id", userGuard(UserRole.ADMIN), userRoutes.deleteUser);
 
 export { router };

@@ -1,10 +1,10 @@
 import {
   create,
   getNumericDate,
-  verify
+  verify,
 } from "https://deno.land/x/djwt@v2.4/mod.ts";
 
-import type { Payload, Header } from "https://deno.land/x/djwt@v2.4/mod.ts";
+import type { Header, Payload } from "https://deno.land/x/djwt@v2.4/mod.ts";
 import { config } from "./../config/config.ts";
 
 const {
@@ -17,8 +17,6 @@ const key = await crypto.subtle.generateKey(
   true,
   ["sign", "verify"],
 );
-
-
 
 const header: Header = {
   alg: "HS256",
@@ -52,8 +50,8 @@ const getJwtPayload = async (token: string): Promise<any | null> => {
   try {
     const payload = await verify(token, key);
     return payload;
-  } catch (err) { }
+  } catch (err) {}
   return null;
 };
 
-export { getAuthToken, getRefreshToken, getJwtPayload };
+export { getAuthToken, getJwtPayload, getRefreshToken };

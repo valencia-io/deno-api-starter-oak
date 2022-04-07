@@ -6,10 +6,12 @@ import {
 import { config } from "./../config/config.ts";
 import { Context } from "./../types.ts";
 
-const errorMiddleware: Middleware = async (ctx: Context, next) => {
+export const errorMiddleware: Middleware = async (ctx: Context, next) => {
   try {
     await next();
   } catch (err) {
+    console.error("errorMiddleware start");
+
     let message = err.message;
     const status = err.status || err.statusCode || Status.InternalServerError;
 
@@ -30,7 +32,6 @@ const errorMiddleware: Middleware = async (ctx: Context, next) => {
 
     ctx.response.status = status;
     ctx.response.body = { status, message };
+    console.error("errorMiddleware end!");
   }
 };
-
-export { errorMiddleware };

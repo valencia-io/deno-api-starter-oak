@@ -13,4 +13,4 @@ const compare = async (password: string, hash: string) => {
   return await bcrypt.compare(password, hash);
 };
 
-export { encript, compare };
+export { compare, encript };

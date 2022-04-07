@@ -2,7 +2,6 @@ import { httpErrors, Middleware } from "https://deno.land/x/oak@v10.4.0/mod.ts";
 import { Context, UserRole } from "./../types.ts";
 import { hasUserRole } from "../helpers/roles.ts";
 
-
 /**
  * has user role middleware
  * checks authorization for context user, user roles
@@ -27,7 +26,7 @@ const userGuard = (roles?: UserRole | UserRole[]) => {
 
     await next();
   };
-  return middleware
+  return middleware;
 };
 
 export { userGuard };

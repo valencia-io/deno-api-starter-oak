@@ -1,9 +1,8 @@
-import { Context, AuthUser } from "./../types.ts";
+import { AuthUser, Context } from "./../types.ts";
 import { getJwtPayload } from "../helpers/jwt.ts";
 import { Middleware } from "https://deno.land/x/oak@v10.4.0/mod.ts";
 
-
-/***
+/** *
  * JWTAuth middleware
  * Decode authorization bearer token
  * and attach as an user in application context
@@ -22,7 +21,7 @@ const JWTAuthMiddleware: Middleware = async (
         ctx.user = user as AuthUser;
       }
     }
-  } catch (err) { }
+  } catch (err) {}
 
   await next();
 };
