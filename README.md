@@ -77,13 +77,13 @@ deno run --allow-net --allow-read --allow-write https://deno.land/x/nessie@1.0.0
 
 | Package  | Purpose |
 | ---------|---------|
-|[oak@5.0.0](https://deno.land/x/oak@5.0.0)| Deno middleware framework|
-|[dotenv@0.4.2](https://deno.land/x/dotenv@0.4.2)| Read env variables|
-|[mysql@2.2.0](https://deno.land/x/mysql@2.2.0)|MySQL driver for Deno|
-|[nessie@1.0.0-rc3](https://deno.land/x/nessie@1.0.0-rc3)| DB migration tool for Deno|
-|[validasaur@0.7.0](https://deno.land/x/validasaur@0.7.0)| validation library|
-|[djwt@0.9.0](https://deno.land/x/djwt@0.9.0)| JWT token encoding|
-|[bcrypt@0.2.1](https://deno.land/x/bcrypt@0.2.1)| bcrypt encription lib|
+|[oak](https://deno.land/x/oak)| Deno middleware framework|
+|[dotenv](https://deno.land/x/dotenv)| Read env variables|
+|[mysql](https://deno.land/x/mysql)|MySQL driver for Deno|
+|[nessie](https://deno.land/x/nessie)| DB migration tool for Deno|
+|[validasaur](https://deno.land/x/validasaur)| validation library|
+|[djwt](https://deno.land/x/djwt)| JWT token encoding|
+|[bcrypt](https://deno.land/x/bcrypt)| bcrypt encription lib|
 
 ### Project Layout
 
@@ -230,6 +230,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/asad-m
 
 ## Contributors
 - [Asad Rahman](https://github.com/asad-mlbd)
+- [jupegarnica](https://github.com/jupegarnica)
 
 ## Roadmap
 
@@ -237,5 +238,6 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/asad-m
 - [x] API Doc
 - [x] Validation
 - [x] JWT Auth
+- [ ] E2E Testing
 - [ ] Unit Testing
 - [ ] Logger

@@ -5,9 +5,10 @@ import * as userRoutes from "./user.routes.ts";
 
 const router: Router = new Router();
 
-// router.get("", (ctx: Context) => {
-//   ctx.response.body = "hello world";
-// });
+router.get("/health", (ctx) => {
+  ctx.response.body = "everything is fine";
+  ctx.response.status = 200;
+});
 
 router
   .post("/login", (_, next) => next(), ...authRoutes.login)

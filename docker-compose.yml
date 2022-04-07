@@ -1,16 +1,34 @@
-version: '3.1'
+version: '3.2'
 
 services:
-  deno:
+  api:
     build: .
     ports:
       - "8000:8000"
+    container_name: api-oak
     volumes:
       - .:/app
     command: deno task dev
+    healthcheck:
+      # test: ["CMD","curl", "--fail", "--silent", "--output", "/dev/null", "http://api:8000/health"]
+      test: curl --fail http://localhost:8000/health || exit 1
+      interval: 30s
+      retries: 1
+      start_period: 2s
+      timeout: 1s
     depends_on:
       - db
-
+  migrate:
+    build: .
+    container_name: nessie-migrate
+    volumes:
+      - .:/app
+    command: deno task migrate
+    depends_on:
+      api:
+        condition: service_healthy
+      db:
+        condition: service_started
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -25,6 +43,7 @@ services:
 
   adminer:
     image: adminer
+    container_name: adminer
     restart: always
     ports:
       - 8080:8080
