@@ -7,15 +7,14 @@ import { Context } from "./types.ts";
 const port = 8000;
 const app = new Application<Context>();
 
+app.use(middleware.errorMiddleware);
+app.use(middleware.loggerMiddleware);
+app.use(middleware.timingMiddleware);
 app.use(oakCors());
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.use(middleware.loggerMiddleware);
-app.use(middleware.timingMiddleware);
-
 app.use(middleware.JWTAuthMiddleware);
-app.use(middleware.errorMiddleware);
 
 console.log(`Server running on http://localhost:${port}`);
 

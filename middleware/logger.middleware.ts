@@ -7,11 +7,9 @@ import * as colors from "https://deno.land/std@0.133.0/fmt/colors.ts";
 logger.use(formatToAnsiColors({ useColor: true, timestamp: false }));
 
 import { Context } from "./../types.ts";
-const loggerMiddleware: Middleware = async (ctx: Context, next) => {
+export const loggerMiddleware: Middleware = async (ctx: Context, next) => {
   await next();
   const reqTime = ctx.response.headers.get("X-Response-Time");
   const status = ctx.response.status;
-  logger[status](colors.cyan(ctx.request.method), colors.bgCyan(ctx.request.url.pathname), reqTime);
+  logger[status](colors.italic(ctx.request.method), colors.bold(ctx.request.url.pathname), colors.yellow(String(reqTime)));
 };
-
-export { loggerMiddleware };
