@@ -10,7 +10,6 @@ export const errorMiddleware: Middleware = async (ctx: Context, next) => {
   try {
     await next();
   } catch (err) {
-    console.error("errorMiddleware start");
 
     let message = err.message;
     const status = err.status || err.statusCode || Status.InternalServerError;
@@ -32,6 +31,5 @@ export const errorMiddleware: Middleware = async (ctx: Context, next) => {
 
     ctx.response.status = status;
     ctx.response.body = { status, message };
-    console.error("errorMiddleware end!");
   }
 };

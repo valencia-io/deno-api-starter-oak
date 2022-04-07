@@ -21,7 +21,9 @@ const JWTAuthMiddleware: Middleware = async (
         ctx.user = user as AuthUser;
       }
     }
-  } catch (err) {}
+  } catch (err) {
+    console.error(err);
+  }
 
   await next();
 };
